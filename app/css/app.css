@@ -1,0 +1,41 @@
+/* app css stylesheet */
+
+body {
+  padding-top: 20px;
+}
+
+/* discipline icons */
+.discipline-1, .discipline-2, .discipline-3, .discipline-4, .discipline-5, .discipline-6, .discipline-7, .discipline-8 {
+    width: 20px;
+    height: 20px;
+    text-indent: -999px;
+    display: inline-block;
+}
+
+.discipline-1 {
+    background-image: url(../img/Huntsman_tango_icon_20px.png);
+}
+.discipline-2 {
+    background-image: url(../img/Artificer_tango_icon_20px.png);
+}
+.discipline-3 {
+    background-image: url(../img/Weaponsmith_tango_icon_20px.png);
+}
+.discipline-4 {
+    background-image: url(../img/Armorsmith_tango_icon_20px.png);
+}
+.discipline-5 {
+    background-image: url(../img/Leatherworker_tango_icon_20px.png);
+}
+.discipline-6 {
+    background-image: url(../img/Tailor_tango_icon_20px.png);
+}
+.discipline-7 {
+    background-image: url(../img/Jeweler_tango_icon_20px.png);
+}
+.discipline-8 {
+    background-image: url(../img/Chef_tango_icon_20px.png);
+}
+
+
+

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" ng-app="gw2cat">
+<head>
+  <meta charset="utf-8">
+  <title>Items List</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/spidy.css">
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+</head>
+<body ng-controller="ItemListCtrl">
+    <div class="container-fluid">
+        <div class="alert" ng-hide="done">
+            Calculating profits, this may take a few seconds please wait...
+        </div>
+    <div class="row-fluid">
+        <div class="span3">
+            <div>Displaying <input type="text" ng-model="limit" class="input-small" /> of {{itemCount}} items</div>
+            <div>
+                <input type="text" ng-model="search.name" placeholder="Type an item name..." />
+            </div>
+            <div class="nullable">
+                <select ng-model="search.rarity" ng-options="r.id as r.name for r in rarities">
+                </select>
+            </div>
+            <div class="nullable">
+                <select ng-model="search.discipline_id" ng-options="r.id as r.name for r in disciplines">
+                </select>
+            </div>
+            <div class="nullable">
+                <select ng-model="search.type_id" ng-options="r.id as r.name for r in types">
+                </select>
+            </div>
+            <div>
+                <button class="btn" ng-click="search={}">Clear Filters</button>
+            </div>
+
+
+        </div>
+        <div class="span9">
+            <table class="recipes table table-striped table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Discipline</th>
+                    <th>Rating</th>
+                    <th>Profit</th>
+                    <th>Crafting Cost</th>
+                    <th>Max Offer</th>
+                    <th>Min Sale</th>
+                    <th>Offer</th>
+                    <th>Sale</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in items | filter:search | orderBy:orderProp:true | limitTo:limit">
+                    <td><a class="rarity-{{item.rarity}}" ng-href="http://www.gw2spidy.com/recipe/{{item.data_id}}">{{item.name}}</a></td>
+                    <td><span class="discipline-{{item.discipline_id}}">{{item.discipline_id}}</span></td>
+                    <td>{{item.rating}}</td>
+                    <td><span ng-bind-html-unsafe="item.profit | gw2currency"></span></td>
+                    <td><span ng-bind-html-unsafe="item.crafting_cost | gw2currency"></span></td>
+                    <td><span ng-bind-html-unsafe="item.result_item_max_offer_unit_price | gw2currency"></span></td>
+                    <td><span ng-bind-html-unsafe="item.result_item_min_sale_unit_price | gw2currency"></span></td>
+                    <td>{{item.offer_availability}}</td>
+                    <td>{{item.sale_availability}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
