@@ -3,6 +3,7 @@
 /* Controllers */
 function ItemListCtrl($scope, $http) {
     $scope.orderProp = 'profit';
+    $scope.reverse = true;
     $scope.itemCount = 0;
     $scope.limit = 50;
     $scope.items = [];
@@ -11,7 +12,7 @@ function ItemListCtrl($scope, $http) {
     var apiUrl = 'http://www.gw2spidy.com/api/v0.9/json/';
 
     //Use this to run tests locally
-    //var apiUrl = 'http://localhost:8888?callback=JSON_CALLBACK&from=http://localhost:8000/app/data/';
+    var apiUrl = 'http://localhost:8888?callback=JSON_CALLBACK&from=http://localhost:8000/app/data/';
 
     $scope.loadFromApi = function () {
 
@@ -38,20 +39,28 @@ function ItemListCtrl($scope, $http) {
                         row.type_id = details.type_id;
                     }
                     allItems.push(row);
+                    $scope.itemCount = results.length;
                 }
                 $scope.items = allItems;
-                $scope.itemCount = results.length;
+
                 $scope.done = true;
             });
     };
 
-    $scope.findItem = function (id) {
-        for (var i = 0; i < $scope.all.length; i++) {
-            if ($scope.all[i].data_id == id) {
-                return $scope.all[i];
-            }
+    $scope.findItem = function(value) {
+        var low = 0;
+        var high = $scope.items.length -1;
+        while (low <= high) {
+            var mid = Math.ceil(low + ((high - low) / 2));
+            if ($scope.items[mid].data_id > value)
+                high = mid - 1;
+            else if ($scope.items[mid].data_id < value)
+                low = mid + 1;
+            else
+                return $scope.items[mid]; // found
         }
-    }
+        return -1; // not found
+    };
 
     // load rarities
     $http({
@@ -86,7 +95,6 @@ function ItemListCtrl($scope, $http) {
         url : apiUrl + 'all-items/all?callback=JSON_CALLBACK',
         cache : true
     }).success(function (data) {
-        $scope.all = data.results;
         $scope.items =  data.results;
         $scope.loadFromApi();
     });

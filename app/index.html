@@ -37,26 +37,24 @@
             <div>
                 <button class="btn" ng-click="search={}">Clear Filters</button>
             </div>
-
-
         </div>
         <div class="span9">
             <table class="recipes table table-striped table-hover table-condensed">
                 <thead>
                 <tr>
-                    <th>Item</th>
-                    <th>Discipline</th>
-                    <th>Rating</th>
-                    <th>Profit</th>
-                    <th>Crafting Cost</th>
-                    <th>Max Offer</th>
-                    <th>Min Sale</th>
-                    <th>Offer</th>
-                    <th>Sale</th>
+                    <th><a href="#" ng-click="orderProp='name';reverse=!reverse">Item</a></th>
+                    <th><a href="#" ng-click="orderProp='discipline_id';reverse=!reverse">Discipline</a></th>
+                    <th><a href="#" ng-click="orderProp='rating';reverse=!reverse">Rating</a></th>
+                    <th><a href="#" ng-click="orderProp='profit';reverse=!reverse">Profit</a></th>
+                    <th><a href="#" ng-click="orderProp='crafting_cost';reverse=!reverse">Crafting Cost</a></th>
+                    <th><a href="#" ng-click="orderProp='result_item_max_offer_unit_price';reverse=!reverse">Max Offer</a></th>
+                    <th><a href="#" ng-click="orderProp='result_item_min_sale_unit_price';reverse=!reverse">Min Sale</a></th>
+                    <th><a href="#" ng-click="orderProp='offer_availability';reverse=!reverse">Offer</a></th>
+                    <th><a href="#" ng-click="orderProp='sale_availability';reverse=!reverse">Sale</a></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in items | filter:search | orderBy:orderProp:true | limitTo:limit">
+                <tr ng-repeat="item in items | filter:search | orderBy:orderProp:reverse | limitTo:limit">
                     <td><a class="rarity-{{item.rarity}}" ng-href="http://www.gw2spidy.com/recipe/{{item.data_id}}">{{item.name}}</a></td>
                     <td><span class="discipline-{{item.discipline_id}}">{{item.discipline_id}}</span></td>
                     <td>{{item.rating}}</td>

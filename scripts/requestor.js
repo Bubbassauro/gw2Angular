@@ -27,3 +27,4 @@ app.get('/', function(req, res){
 });
 
 app.listen(8888);
+console.log('Listening on http://localhost:8888')
