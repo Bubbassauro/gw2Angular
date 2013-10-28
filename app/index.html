@@ -22,6 +22,9 @@
             <div>
                 <input type="text" ng-model="search.name" placeholder="Type an item name..." />
             </div>
+            <div>
+                <input type="text" ng-model="exclude" placeholder="Except for these items..." tooltip="Separate exclusions by |, for example: destroyer|sentinel" />
+            </div>
             <div class="nullable">
                 <select ng-model="search.rarity" ng-options="r.id as r.name for r in rarities">
                 </select>
@@ -54,7 +57,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in items | filter:search | orderBy:orderProp:reverse | limitTo:limit">
+                <tr ng-repeat="item in items | filter:search | filter:filterOut | orderBy:orderProp:reverse | limitTo:limit">
                     <td><a class="rarity-{{item.rarity}}" ng-href="http://www.gw2spidy.com/recipe/{{item.data_id}}">{{item.name}}</a></td>
                     <td><span class="discipline-{{item.discipline_id}}">{{item.discipline_id}}</span></td>
                     <td>{{item.rating}}</td>

@@ -12,7 +12,7 @@ function ItemListCtrl($scope, $http) {
     var apiUrl = 'http://www.gw2spidy.com/api/v0.9/json/';
 
     //Use this to run tests locally
-    var apiUrl = 'http://localhost:8888?callback=JSON_CALLBACK&from=http://localhost:8000/app/data/';
+    //var apiUrl = 'http://localhost:8888?callback=JSON_CALLBACK&from=http://localhost:8000/app/data/';
 
     $scope.loadFromApi = function () {
 
@@ -61,6 +61,17 @@ function ItemListCtrl($scope, $http) {
         }
         return -1; // not found
     };
+
+    $scope.filterOut = function(item) {
+        if (!$scope.exclude)
+            return true;
+
+        var re = new RegExp($scope.exclude, "gi");
+        if (item.name.match(re))
+            return false;
+        else
+            return true;
+    }
 
     // load rarities
     $http({
